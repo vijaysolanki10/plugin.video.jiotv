@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings version="1">
+	<section id="plugin.video.jiotv">
+<!-- Stream Tab begins -->
+		<category id="stream" label="35000" help="">
+			<group id="scache" label="33086">
+				<setting id="cleanup" type="action" label="35001" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.jiotv/resources/lib/main/cleanup/)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+			</group>
+			<group id="sstream" label="35000">
+				<setting id="sstype" type="string" label="35002" help="">
+					<level>0</level>
+					<default>Fixed-Res</default>
+					<constraints>
+						<options>
+							<option>Adaptive</option>
+							<option>Ask-Quality</option>
+							<option>Manual-OSD</option>
+							<option>Fixed-Res</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33002</heading>
+					</control>
+				</setting>
+				<setting id="quality" type="string" label="35003" help="">
+					<level>0</level>
+					<default>Best</default>
+					<dependencies>
+						<dependency type="visible" setting="sstype">Adaptive</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option>Best</option>
+							<option>High</option>
+							<option>Medium+</option>
+							<option>Medium</option>
+							<option>Low</option>
+							<option>Lower</option>
+							<option>Lowest</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33003</heading>
+					</control>
+				</setting>
+				<setting id="resmax" type="string" label="35004" help="">
+					<level>0</level>
+					<default>1080p</default>
+					<constraints>
+						<options>
+							<option>4K</option>
+							<option>1440p</option>
+							<option>2K</option>
+							<option>1080p</option>
+							<option>720p</option>
+							<option>640p</option>
+							<option>480p</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33004</heading>
+					</control>
+				</setting>
+				<setting id="ressecmax" type="string" label="35005" help="">
+					<level>0</level>
+					<default>1080p</default>
+					<constraints>
+						<options>
+							<option>4K</option>
+							<option>1440p</option>
+							<option>2K</option>
+							<option>1080p</option>
+							<option>720p</option>
+							<option>640p</option>
+							<option>480p</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33005</heading>
+					</control>
+				</setting>
+				<setting id="usempd" type="boolean" label="35006" help="33077">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"></control>
+				</setting>
+			</group>
+		</category>
+<!-- Stream Tab ends -->
+<!-- Channels Tab begins -->
+		<category id="Channels" label="33007" help="">
+			<group id="cchannels" label="33007">
+				<setting id="hdsdch" type="integer" label="33009" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="All Channels (HD and SD)">0</option>
+							<option label="HD Channels Only">1</option>
+							<option label="SD Channels Only">2</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33009</heading>
+					</control>
+				</setting>
+				<setting id="numaddlist" type="boolean" label="33010" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting help="" id="filteraddlist" label="33011" type="boolean">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="filterplaylist" type="boolean" label="33012" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="redextch" type="boolean" label="33008" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="slsrc" type="integer" label="33076" parent="redextch" help="">
+					<level>0</level>
+					<default>0</default>
+					<dependencies>
+						<dependency type="enable" setting="redextch">true</dependency>
+					</dependencies>
+					<constraints>
+						<options>
+							<option label="slivcdn">0</option>
+							<option label="akamaized">1</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33076</heading>
+					</control>
+				</setting>
+				<setting id="chapiv" type="string" label="33016" help="">
+					<level>2</level>
+					<default>v1.4</default>
+					<constraints>
+						<options>
+							<option>v3.0</option>
+							<option>v1.4</option>
+							<option>v1.3</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33016</heading>
+					</control>
+				</setting>
+				<setting id="channelssource" type="string" label="33078" help="">
+					<level>3</level>
+					<default>https://jiotvapi.cdn.jio.com/apis/v3.0/getMobileChannelList/get/?os=android&devicetype=phone&usertype=tvYR7NSNn7rymo3F&version=353&langId=6</default>
+					<visible>false</visible>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>33078</heading>
+					</control>
+				</setting>
+				<setting id="pbapiv" type="string" label="33017" help="">
+					<level>2</level>
+					<default>v2.0</default>
+					<constraints>
+						<options>
+							<option>v2.2</option>
+							<option>v2.1</option>
+							<option>v2.0</option>
+							<option>v1</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33017</heading>
+					</control>
+				</setting>
+				<setting id="channelurl" type="string" label="33079" help="">
+					<level>3</level>
+					<default>https://tv.media.jio.com/apis/v2.0/getchannelurl/getchannelurl?langId=6</default>
+					<visible>false</visible>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>33079</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+<!-- Channels Tab ends -->
+<!-- Playlist/Guide Tab begins -->
+		<category help="" id="iptvepg" label="33015">
+			<group id="iiptv">
+				<setting id="pvrsetup" type="action" label="33020" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.jiotv/resources/lib/main/pvrsetup/)</data>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="action" type="button">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="m3ugen" type="boolean" label="33021" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"></control>
+				</setting>
+			</group>
+			<group id="iepg" label="33088">
+				<setting help="" id="epg_url" label="33022" type="string">
+					<level>0</level>
+					<default></default>
+					<dependencies>
+						<dependency type="enable" setting="genepg">false</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control format="string" type="edit">
+						<heading>33022</heading>
+					</control>
+				</setting>
+				<setting id="epglimpast" type="integer" label="33025" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Yesterday">0</option>
+							<option label="Past 2 days">1</option>
+							<option label="Past 3 days">2</option>
+							<option label="Past 4 days">3</option>
+							<option label="Past 5 days">4</option>
+							<option label="Past 6 days">5</option>
+							<option label="Past 7 days">6</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33025</heading>
+					</control>
+				</setting>
+				<setting id="epglimfut" type="integer" label="33026" help="">
+					<level>0</level>
+					<default>0</default>
+					<constraints>
+						<options>
+							<option label="Tomorrow">0</option>
+							<option label="Next 2 days">1</option>
+							<option label="Next 3 days">2</option>
+							<option label="Next 4 days">3</option>
+							<option label="Next 5 days">4</option>
+							<option label="Next 6 days">5</option>
+							<option label="Next 7 days">6</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33026</heading>
+					</control>
+				</setting>
+				<setting id="manepg" type="action" label="33082" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.jiotv/resources/lib/utils/epg/)</data>
+					<control type="button" format="action">
+						<close>true</close>
+					</control>
+				</setting>
+				<setting id="genepg" type="boolean" label="33023" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="genepgtime" type="time" label="33085" parent="genepg" help="">
+					<level>0</level>
+					<default>08:00</default>
+					<dependencies>
+						<dependency type="enable" setting="genepg">true</dependency>
+					</dependencies>
+					<control type="button" format="time">
+						<heading>33085</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+<!-- Playlist/Guide Tab ends -->
+<!-- Languages Tab begins -->
+		<category help="" id="languages" label="33048">
+			<group id="lang" label="33048">
+				<setting id="Hindi" type="boolean" label="33049" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Marathi" type="boolean" label="33050" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Punjabi" type="boolean" label="33051" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Urdu" type="boolean" label="33052" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Bengali" type="boolean" label="33053" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="English" type="boolean" label="33054" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Malayalam" type="boolean" label="33055" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Tamil" type="boolean" label="33056" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Gujarati" type="boolean" label="33057" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Odia" type="boolean" label="33058" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Telugu" type="boolean" label="33059" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Bhojpuri" type="boolean" label="33060" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Kannada" type="boolean" label="33061" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Assamese" type="boolean" label="33062" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Nepali" type="boolean" label="33063" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="French" type="boolean" label="33064" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Other Languages" type="boolean" label="33083" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+			</group>
+		</category>
+<!-- Languages Tab ends -->
+<!-- Categories Tab begins -->
+		<category id="categories" label="33034" help="">
+			<group id="catg" label="33034">
+				<setting id="Entertainment" type="boolean" label="33035" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Movies" type="boolean" label="33036" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Kids" type="boolean" label="33037" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Sports" type="boolean" label="33038" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Lifestyle" type="boolean" label="33039" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Infotainment" type="boolean" label="33040" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Religious" type="boolean" label="33041" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="News" type="boolean" label="33042" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Music" type="boolean" label="33043" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Devotional" type="boolean" label="33044" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Business News" type="boolean" label="33045" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Educational" type="boolean" label="33046" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Shopping" type="boolean" label="33047" help="">
+					<level>0</level>
+					<default>true</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="Other Categories" type="boolean" label="33084" help="">
+					<level>0</level>
+					<default>false</default>
+					<dependencies>
+						<dependency type="enable">
+	 						<or>
+	 	 						<condition setting="filteraddlist">true</condition>
+	 	 						<condition setting="filterplaylist">true</condition>
+	 						</or>
+						 </dependency>
+					</dependencies>
+					<control type="toggle"></control>
+				</setting>
+			</group>
+		</category>
+<!-- Categories Tab ends -->
+<!-- Account Tab begins -->
+		<category id="account" label="33065" help="">
+			<group id="aacc" label="33065">
+				<setting id="mobile" type="integer" label="33066" help="">
+					<level>0</level>
+					<default></default>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">false</dependency>
+					</dependencies>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="integer">
+						<heading>33066</heading>
+					</control>
+				</setting>
+				<setting id="lstatus" type="string" label="33081" help="">
+					<level>0</level>
+					<default>Not logged in</default>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control type="edit" format="string" >
+						<heading>33081</heading>
+					</control>
+				</setting>
+
+				<setting id="atokreftime" type="string" label="" help="">
+					<level>3</level>
+					<default></default>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">true</dependency>
+					</dependencies>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading></heading>
+					</control>
+				</setting>
+				<setting id="atokexp" type="string" label="" help="">
+					<level>3</level>
+					<default></default>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">true</dependency>
+					</dependencies>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading></heading>
+					</control>
+				</setting>
+				<setting id="stokreftime" type="string" label="" help="">
+					<level>3</level>
+					<default></default>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">true</dependency>
+					</dependencies>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading></heading>
+					</control>
+				</setting>
+				<setting id="stokexp" type="string" label="" help="">
+					<level>3</level>
+					<default></default>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">true</dependency>
+					</dependencies>
+					<enable>false</enable>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading></heading>
+					</control>
+				</setting>
+				<setting id="isloggedin" type="boolean" label="" help="">
+					<level>2</level>
+					<default>false</default>
+					<visible>false</visible>
+					<control type="toggle"></control>
+				</setting>
+				<setting id="login" type="action" label="33067" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.jiotv/resources/lib/main/login/)</data>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">false</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+				<setting id="logout" type="action" label="33068" help="">
+					<level>0</level>
+					<data>RunPlugin(plugin://plugin.video.jiotv/resources/lib/main/logout/)</data>
+					<dependencies>
+						<dependency type="visible" setting="isloggedin">true</dependency>
+					</dependencies>
+					<control type="button" format="action">
+						<close>false</close>
+					</control>
+				</setting>
+			</group>
+			<group id="advc" label="33080">
+				<setting id="devicetype" type="string" label="33069" help="">
+					<level>3</level>
+					<default>Phone</default>
+					<constraints>
+						<options>
+							<option>Phone</option>
+							<option>TV</option>
+							<option>Tablet</option>
+							<option>Jiobook</option>
+							<option>Feature</option>
+							<option>Web</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33069</heading>
+					</control>
+				</setting>
+				<setting id="oprsys" type="string" label="33070" help="">
+					<level>3</level>
+					<default>Android</default>
+					<constraints>
+						<options>
+							<option>Android</option>
+							<option>Feature</option>
+							<option>iOS</option>
+							<option>Web</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33070</heading>
+					</control>
+				</setting>
+				<setting id="osver" type="string" label="33071" help="">
+					<level>3</level>
+					<default>9</default>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>33071</heading>
+					</control>
+				</setting>
+				<setting id="usergroup" type="string" label="33072" help="">
+					<level>3</level>
+					<default>tvYR7NSNn7rymo3F</default>
+					<constraints>
+						<options>
+							<option>tvYR7NSNn7rymo3F</option>
+							<option>Jio</option>
+							<option>JIO</option>
+							<option>NONJIO</option>
+							<option>GUEST</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33072</heading>
+					</control>
+				</setting>
+				<setting id="useragent" type="string" label="33073" help="">
+					<level>3</level>
+					<default>plaYtv/7.1.7 (Linux;Android 9) ExoPlayerLib/2.11.7</default>
+					<constraints>
+						<options>
+							<option>plaYtv/7.1.7 (Linux;Android 9) ExoPlayerLib/2.11.7</option>
+							<option>Mozilla/5.0 (Linux; Android 9; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Mobile Safari/537.36</option>
+							<option>Mozilla/5.0</option>
+						</options>
+					</constraints>
+					<control type="list" format="string">
+						<heading>33073</heading>
+					</control>
+				</setting>
+				<setting id="httpuseragent" type="string" label="33074" help="">
+					<level>3</level>
+					<default>okhttp/4.9.3</default>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>33074</heading>
+					</control>
+				</setting>
+				<setting id="vercode" type="string" label="33075" help="">
+					<level>3</level>
+					<default>353</default>
+					<constraints>
+						<allowempty>false</allowempty>
+					</constraints>
+					<control type="edit" format="string">
+						<heading>33075</heading>
+					</control>
+				</setting>
+			</group>
+		</category>
+<!-- Account Tab ends -->
+	</section>
+</settings>
